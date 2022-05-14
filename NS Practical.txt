@@ -1,0 +1,338 @@
+
+
+===========================================================================================================
+
+C. Practical Assignments:
+
+1. Design and implement the insecurity of default passwords in Plaintext.
+
+#include <stdio.h>
+#include <string.h>
+#include <conio.h>
+int main()
+{
+ char username[15];
+ char password[12];
+ printf("\nEnter your username: ");
+ scanf("%s",&username);
+ printf("\nEnter your password: ");
+ scanf("%s",&password);
+ if(strcmp(username,"admin")==0)
+ {
+ if(strcmp(password,"admin")==0)
+ {
+ printf("\nWelcome. Login Success!");
+ }
+ else
+ {
+ printf("\nWrong password.");
+ }
+ }
+ else
+ {
+ printf("\nUser doesn't exist.");
+ }
+ return 0;
+ } 
+================================================================================================================
+2. Design and implement the insecurity of printed passwords and password transmitted in Plaintext.
+
+#include <stdio.h>
+#include <conio.h>
+void main()
+{
+ char password[10],username[10], ch;
+ int i;
+ printf("\nEnter User name: ");
+ gets(username);
+ printf("\nEnter the password <any 8 characters>: ");
+ for(i=0;i<8;i++)
+ {
+ ch = getch();
+ password[i] = ch;
+ //ch = '*' ;
+ //printf("%c",ch);
+ printf("*");
+ }
+ password[i] = '\0';
+ printf("\n\nYour password is:");
+ for(i=0;i<8;i++)
+ {
+ printf("%c",password[i]);
+ }
+} 
+==================================================================================================
+
+3. Write a program for simple Encryption.
+
+#include<stdio.h>
+int main()
+{
+
+int i, key;
+char str[50], c1;
+printf("Enter a message for encryption: ");
+scanf("%s",&str);
+printf("Enter key value: ");
+scanf("%d", &key);
+for(i=0; str[i] !='\0';i++)
+{
+c1=str[i];
+if (c1>=97 && c1 <= 122)
+{
+c1=c1+key;
+if(c1>122)
+{
+c1=c1-122+97-1;
+}
+str[i]=c1;
+}
+else if (c1>=65 && c1 <= 90)
+{
+c1=c1+key;
+if(c1>90)
+{
+c1=c1-90+65-1;
+}
+str[i]=c1;
+}
+}
+printf("Encrypted message is: %s", str);
+return 0;
+}
+
+======================================================================================================
+
+
+4. Write a program for simple Decryption.
+
+#include<stdio.h>
+int main()
+{
+
+
+int i, key;
+char str[50], c1;
+printf("Enter a message for decryption: ");
+scanf("%s",&str);
+printf("Enter key value: ");
+scanf("%d", &key);
+for(i=0; str[i] !='\0';i++)
+{
+c1=str[i];
+if (c1>=97 && c1 <= 122)
+{
+c1=c1-key;
+if(c1<97)
+{
+c1=c1+122-97+1;
+
+}
+str[i]=c1;
+}
+else if (c1>=65 && c1 <= 90)
+{
+c1=c1-key;
+if(c1<65)
+{
+c1=c1+90-65+1;
+}
+str[i]=c1;
+}
+}
+printf("Decrypted message is: %s", str);
+return 0;
+}
+
+=======================================================================================================
+
+
+5. Write a program to perform encryption and decryption using the following algorithms: Caesar Cipher.
+
+
+#include <stdio.h>
+#include<string.h>
+ 
+int main()
+{
+   
+   int i, x;
+   char str[100];
+ 
+   printf("\n enter a string:\t");
+   scanf("%s",str);
+ 
+   printf("\nchoose following options:\n");
+   printf("1 to Encrypt the string.\n");
+   printf("2 to Decrypt the string.\n");
+   scanf("%d", &x);
+ 
+  
+   switch(x)
+   {
+   case 1:
+      for(i = 0; (i < 100 && str[i] != '\0'); i++)
+        str[i] = str[i] + 3;
+ 
+      printf("\nEncrypted string: %s\n", str);
+      break;
+   case 2:
+      for(i = 0; (i < 100 && str[i] != '\0'); i++)
+        str[i] = str[i] - 3;
+ 
+      printf("\nDecrypted string: %s\n", str);
+      break;
+   default:
+      printf("\nError\n");
+   }
+   return 0;
+}
+=======================================================================================================
+
+6. Write a program to perform encryption and decryption using the following algorithms: 
+Substitution Cipher (Except Caesar Cipher).
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+	char str[10],en[10],de[10],al[]="abcdefghijklmnopqrstuvwxyz";
+	printf("Enter a message for encryption: ");
+	scanf("%s", &str);
+	int i,j;
+	for(i=0;i<10;i++){
+		for(j=0;j<26;j++){
+			if(str[i]==al[j]){
+				int x = 26-(j+1);
+				en[i] = al[x];
+			}
+		}
+	}
+	printf("Encrypted message is %s", en);
+	for(i=0;i<strlen(en);i++){
+		for(j=0;j<26;j++){
+			if(en[i]==al[j]){
+				int x = 26-(j+1);
+				de[i] = al[x];
+			}
+		}
+	}
+	printf("\nDecrypted message is %s", de);
+}
+=======================================================================================================
+
+7. Implementation of Symmetric cryptography.
+#include<stdio.h>
+ int main()
+{
+        
+    printf("This is symmeteric Key cryptography\n");
+   char str[100];
+   printf("\nEnter string to encrypt: ");
+   gets(str);
+   printf("\nEnter key: ");
+   int key1,key2,i,j;
+   scanf("%d",&key1);
+   for(i = 0; (i < 100 && str[i] != '\0'); i++)
+       str[i] = str[i] + key1;
+   printf("\n\nEncrypted string: %s\n", str);
+   printf("\nEnter Key to Decrypt: ");
+   scanf("%d",&key2);
+   if(key1==key2)
+  {
+    	for(j = 0; (j < 100 && str[j] != '\0'); j++)
+           	str[j] = str[j] - key1;
+        printf("\nDecrypted string: %s\n", str);
+ }
+ else
+{
+   	printf("\nInvalid Key !!!\n");
+}
+ return 0;
+ }
+
+============================================================================================================
+8. Implementation of Asymmetric cryptography (RSA Algorithm).
+
+#include<stdio.h>
+#include<math.h>
+
+int coPrime(int a, int h)
+{
+    int temp;
+    while(1)
+    {
+        temp=a%h;
+        if(temp==0)
+          return h;
+        a=h;
+        h=temp;
+    }
+}
+
+main(){
+	double p,q;
+	printf("Enter values of p and q \n");
+	scanf("%lf%lf", &p, &q);
+	double n=p*q;
+	double e=5;
+	double phi=(p-1)*(q-1);
+	printf("Phi = %lf\n", phi);
+	while(e<phi)
+    {
+        if(coPrime(e,phi)==1)
+            break;
+        else
+            e++;
+    }
+    printf("e = %lf\n", e);
+    double d=1;
+    while(1){
+    	if (fmod(d*e,phi)==1)
+    	break;
+    	d++;
+	}
+    printf("d = %lf\n",d);
+    double msg;
+	printf("Enter message : ");
+	scanf("%lf", &msg);
+	  
+    printf("Message data : %lf", msg);
+    
+    double c=pow(msg,e);
+    c=fmod(c,n);
+    printf("\nEncrypted data : %lf", c);
+    
+    double m=pow(c, d);
+    m=fmod(m, n);
+    double P=1;
+    double j;
+    for(j=0;j<d;j++) {
+    	P=fmod(P*c,n);
+	}
+    printf("\nOriginal Message : %lf", P);
+}
+
+
+
+=============================================================================================
+9. Implementation of Steganography using Xiao/ Stegosuite software.
+ 
+10. Implementation of SHA1 Hash Function. Also, perform Diffie-Hellman key establishment using Vlab.
+11. Implementation of SHA256 Hash Function. Also, perform Diffie Hellman key establishment using Vlab.
+12. Implementation of SHA512 Hash Function. Also, perform Digital Signature using Vlab.
+13. Implementation of MD5 Hash Function. Also, perform Digital Signature using Vlab.
+
+
+import hashlib
+
+str = "meet me now"
+
+result = hashlib.sha1(str.encode())
+
+print(result.hexdigest())
+
+
+===========================================================================
+====================================
+
+
